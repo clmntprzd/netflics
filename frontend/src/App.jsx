@@ -6,6 +6,7 @@ import Counter from './pages/Counter/Counter';
 import Users from './pages/Users/Users';
 import Genres from './pages/Genres/Genres';
 import Film from './pages/Film/Film';
+import Search from './pages/Search/Search';
 function App() {
   return (
     <Layout>
@@ -16,6 +17,7 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="about" element={<About />} />
         <Route path="film" element={<Film />} />
+        <Route path="search" element={<Search />} />
       </Routes>
     </Layout>
   );

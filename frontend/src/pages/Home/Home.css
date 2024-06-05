@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 2s linear;
+    animation: App-logo-spin infinite 200s linear;
   }
 
 }
@@ -23,7 +23,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
   text-decoration: none;
+  padding-top: 100px;
 }
+
 
 .App-link {
   color: #61dafb;
@@ -46,6 +48,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+  padding-top: 80px;
 }
 
 .list-item {
@@ -53,10 +56,15 @@
   flex-flow: column;
   margin: 10px;
   padding: 10px;
-  background-color: #404250;
   border-radius: 30px;
-  font-size: 20px;
+  font-size: 25px;
   max-width: 300px;
+  transition: transform .2s;
+
+}
+
+.list-item:hover{
+  transform: scale(1.2);
 }
 
 a:hover, a:visited, a:link, a:active
@@ -73,11 +81,16 @@ img{
 {
   display: flex;
   flex-flow: column;
-  margin: 10px;
-  padding: 10px;
-  background-color: #404250;
+  margin: 20px;
+  padding: 30px;
   border-radius: 30px;
-  font-size: 20px;
+  font-size: 80px;
+  background-color: rgba(0, 0, 0, 0.788);
+  transition: transform .2s;
+}
+
+.pageSelector:hover{
+  transform: scale(1.8);
 }
 .pageSelectorBottom
 {
@@ -85,4 +98,5 @@ img{
   flex-flow: row;
   justify-content: space-around; /* or other values: flex-start, flex-end, center, space-between, space-evenly */
   align-items: center; /* or other values: flex-start, flex-end, stretch */
+  padding-top: 50px;
 }
