@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+}
+
+
+
+.App-link {
+  color: #61dafb;
+}
+.FilmBox{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  background-size: cover;
+  min-height: calc(100vh - 34px);
+  position: relative;
+  background-size: cover;
+  background-blend-mode: saturation;
+
+}
+
+.LoadingBox{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  position: relative;
+}
+.FilmImage{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  filter: drop-shadow(16px 16px rgb(0, 81, 255));
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+}
+
+.FilmText
+{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  mix-blend-mode:difference;
+  backdrop-filter: brightness(0.2) grayscale(0.5);
+  border-radius: 50px;
+  margin:40px;
+  padding: 40px;
+
+}
+.FilmTitle{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+
+}
+.FilmDescription{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  max-width: 800px;
+}
+
+.FilmFacInfo
+{
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.Error
+{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: xx-large;
+  position:relative;
+  height: 100vh;
+}
+
+a
+{
+  color: unset;
+  text-decoration: unset;
+}
+
+
+.star-rating {
+    display:  flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: 50px;
+    justify-content: center;
+    margin-top: 50px;
+    padding-bottom: 20px;
+}
+.back-stars {
+  display:  flex;
+  flex-flow: row nowrap;
+    color: #bb5252;
+    position: relative;
+    text-shadow: 4px 4px 10px #843a3a;
+}
+.front-stars {
+  display:  flex;
+  flex-flow: row nowrap;
+    color: #FFBC0B;
+    overflow: hidden;
+    position: absolute;
+    text-shadow: 2px 2px 5px #d29b09;
+    top: 0;
+    transition: all .5s
+}
+
+.logo18
+{
+  padding: 20px;
+  border-radius: 20px;
+  width: 100px;
+}

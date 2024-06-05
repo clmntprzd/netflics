@@ -4,6 +4,8 @@
   justify-content: center;
   padding: 5px;
   font-size: calc(10px + 2vmin);
+  color:white;
+  
 }
 
 .Header-container > :not(:last-child) {
@@ -13,4 +15,5 @@
 .Link {
   font-weight: 700;
   color: white;
+  text-decoration: none;
 }

@@ -9,18 +9,20 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
   }
+
 }
 
 .App-header {
-  background-color: #282c34;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-decoration: none;
 }
 
 .App-link {
@@ -34,4 +36,53 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-moviesList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around; /* or other values: flex-start, flex-end, center, space-between, space-evenly */
+  align-items: center; /* or other values: flex-start, flex-end, stretch */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  flex-flow: column;
+  margin: 10px;
+  padding: 10px;
+  background-color: #404250;
+  border-radius: 30px;
+  font-size: 20px;
+  max-width: 300px;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+  text-decoration: unset !important;
+  color: unset;
+}
+
+img{
+  border-radius: 30px;
+}
+
+.pageSelector
+{
+  display: flex;
+  flex-flow: column;
+  margin: 10px;
+  padding: 10px;
+  background-color: #404250;
+  border-radius: 30px;
+  font-size: 20px;
+}
+.pageSelectorBottom
+{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around; /* or other values: flex-start, flex-end, center, space-between, space-evenly */
+  align-items: center; /* or other values: flex-start, flex-end, stretch */
 }
