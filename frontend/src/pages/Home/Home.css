@@ -11,21 +11,19 @@
   .App-logo {
     animation: App-logo-spin infinite 200s linear;
   }
-
 }
 
-.App-header {
-
+.App-Header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 50px;
   color: white;
   text-decoration: none;
-  padding-top: 100px;
+  padding-top: 20px;
+  padding-bottom: 0px;
 }
-
 
 .App-link {
   color: #61dafb;
@@ -48,7 +46,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  padding-top: 80px;
+  padding-top: 50px;
 }
 
 .list-item {
@@ -59,26 +57,26 @@
   border-radius: 30px;
   font-size: 25px;
   max-width: 300px;
-  transition: transform .2s;
-
+  transition: transform 0.2s;
 }
 
-.list-item:hover{
+.list-item:hover {
   transform: scale(1.2);
 }
 
-a:hover, a:visited, a:link, a:active
-{
+a:hover,
+a:visited,
+a:link,
+a:active {
   text-decoration: unset !important;
   color: unset;
 }
 
-img{
+img {
   border-radius: 30px;
 }
 
-.pageSelector
-{
+.pageSelector {
   display: flex;
   flex-flow: column;
   margin: 20px;
@@ -86,14 +84,13 @@ img{
   border-radius: 30px;
   font-size: 60px;
   background-color: rgba(0, 0, 0, 0.788);
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
-.pageSelector:hover{
+.pageSelector:hover {
   transform: scale(1.8);
 }
-.pageSelectorBottom
-{
+.pageSelectorBottom {
   display: flex;
   flex-flow: row;
   justify-content: space-around; /* or other values: flex-start, flex-end, center, space-between, space-evenly */

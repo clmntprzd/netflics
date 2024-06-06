@@ -5,22 +5,23 @@ import UsersTable from '../../components/UsersTable/UsersTable';
 import { useFetchUsers } from './useFetchUsers';
 
 function Users() {
-  //const { users, usersLoadingError, fetchUsers } = useFetchUsers();
+  const { users, usersLoadingError, fetchUsers } = useFetchUsers();
   function LogUser(id, name) {
     document.cookie = 'userid=' + id + ';';
     document.cookie = 'name=' + name + '; ';
     console.log(id);
     window.location.href = '/';
   }
+  console.log(users);
   const userList = [
     { id: 1, name: 'Clement' },
     { id: 2, name: 'Melvyn' },
     { id: 3, name: 'Flavian' },
   ];
-  const listUserRender = userList.map((user) => (
+  const listUserRender = users.map((user) => (
     <div
       className="User-Icon"
-      onClick={() => LogUser(user.id, user.name)}
+      onClick={() => LogUser(user.id, user.firstname)}
       key={user.id}
     >
       <FontAwesomeIcon
@@ -28,7 +29,7 @@ function Users() {
         style={{ color: '#ffffff' }}
         className="User-IconImg"
       />
-      <div className="Username">{user.name}</div>
+      <div className="Username">{user.firstname}</div>
     </div>
   ));
 

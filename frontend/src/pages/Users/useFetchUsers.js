@@ -9,7 +9,7 @@ export function useFetchUsers() {
     setUsersLoadingError(null);
 
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/users`)
+      .get(`http://localhost:8000/users`)
       .then((response) => {
         setUsers(response.data.users);
       })

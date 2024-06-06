@@ -1,58 +1,50 @@
 import express from 'express';
+import { Like } from 'typeorm';
 import { appDataSource } from '../datasource.js';
 import Movie from '../entities/movies.js';
-
 const router = express.Router();
-
+const ITEMS_PER_PAGE = 40; // Number of items per page
 router.get('/', function (req, res) {
   appDataSource
     .getRepository(Movie)
     .find({})
     .then(function (movie) {
-      res.json({ movies: movie });
+      res.json({ results: movie });
     });
 });
 
-router.post('/new', function (req, res) {
-  console.log(req.body);
-  const movieRepository = appDataSource.getRepository(Movie);
-  const newMovie = movieRepository.create({
-    id: req.body.id,
-    title: req.body.title,
-    genre_ids: req.body.genre_ids,
-    overview: req.body.overview,
-    poster_path: req.body.poster_path,
-  });
-
-  movieRepository
-    .save(newMovie)
-    .then(function (savedUser) {
-      res.status(201).json({
-        message: 'Movie successfully added',
-        id: savedUser.id,
-      });
-    })
-    .catch(function (error) {
-      console.error(error);
-      if (error.code === '23505') {
-        res.status(400).json({
-          message: `Movie with id "${newMovie.id}" already exists`,
-        });
-      } else {
-        res.status(500).json({ message: 'Error while adding the movie' });
-      }
-    });
-});
-
-router.delete('/:filmId', function (req, res) {
+router.get('/popular', function (req, res) {
+  const page = parseInt(req.query.page, 10); // Default to page 1 if pageId is not provided
+  const skip = (page - 1) * ITEMS_PER_PAGE;
   appDataSource
     .getRepository(Movie)
-    .delete({ id: req.params.userId })
-    .then(function () {
-      res.status(204).json({ message: 'Movie successfully deleted' });
+    .find({
+      order: {
+        popularity: 'DESC',
+      },
+      skip: skip,
+      take: ITEMS_PER_PAGE,
     })
-    .catch(function () {
-      res.status(500).json({ message: 'Error while deleting the movie' });
+    .then(function (movie) {
+      res.json({ results: movie });
+    });
+});
+
+router.get('/search', function (req, res) {
+  const searchTerm = req.query.query || '';
+
+  if (!searchTerm) {
+    return res.status(400).send({ error: 'Title query parameter is required' });
+  }
+  appDataSource
+    .getRepository(Movie)
+    .find({
+      where: {
+        title: Like(`%${searchTerm}%`),
+      },
+    })
+    .then(function (movie) {
+      res.json({ results: movie });
     });
 });
 

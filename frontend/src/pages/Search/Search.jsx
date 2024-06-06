@@ -59,7 +59,7 @@ function Home() {
   useEffect(() => {
     const options = {
       method: 'GET',
-      url: 'https://api.themoviedb.org/3/search/multi',
+      url: 'http://localhost:8000/movies/search',
       params: { language: langId, query: currentSearch.request },
       headers: {
         accept: 'application/json',

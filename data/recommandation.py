@@ -123,8 +123,15 @@ def recommend_bm50(request):
         rated_movies.append((id_desc[film],-1))
     recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
     best_recommandation=[]
-    for i in range(50):
-        best_recommandation.append({"id":desc_id[recommended_movies[i]],"poster_path":id_poster[desc_id[recommended_movies[i]]]})
+    count=0
+    i=0
+    while count<100 and i<len(recommended_movies):
+        if desc_id[recommended_movies[i]] in like:
+            pass
+        else:
+            best_recommandation.append({"id":desc_id[recommended_movies[i]],"poster_path":id_poster[desc_id[recommended_movies[i]]]})
+            count+=1
+        i+=1
     return best_recommandation
 
 # Afficher les recommandations

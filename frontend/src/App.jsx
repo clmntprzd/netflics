@@ -7,6 +7,7 @@ import Users from './pages/Users/Users';
 import Genres from './pages/Genres/Genres';
 import Film from './pages/Film/Film';
 import Search from './pages/Search/Search';
+import Likes from './pages/Likes/Likes';
 function App() {
   return (
     <Layout>
@@ -18,6 +19,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="film" element={<Film />} />
         <Route path="search" element={<Search />} />
+        <Route path="liked" element={<Likes />} />
       </Routes>
     </Layout>
   );

@@ -39,6 +39,14 @@ const Header = () => {
           />
         </Link>
         <div>|</div>
+        <Link className="Link" to="/liked">
+          <FontAwesomeIcon
+            icon="fa-solid fa-heart"
+            style={{ color: '#ffffff' }}
+          />
+        </Link>
+
+        <div>|</div>
         <Link className="Link" to="/users">
           <FontAwesomeIcon
             icon="fa-solid fa-user"
@@ -46,6 +54,7 @@ const Header = () => {
           />
         </Link>
         <div>|</div>
+
         <Link className="Link" to="/about">
           <FontAwesomeIcon
             icon="fa-solid fa-plus"

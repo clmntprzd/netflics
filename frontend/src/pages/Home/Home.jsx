@@ -19,7 +19,7 @@ function Home() {
   console.log(pageId);
   const options = {
     method: 'GET',
-    url: 'https://api.themoviedb.org/3/movie/popular',
+    url: 'http://localhost:8000/movies/popular',
     params: { language: langId, page: pageId },
     headers: {
       accept: 'application/json',
@@ -60,6 +60,7 @@ function Home() {
 
   return (
     <div className="App">
+      <div className="App-Header">Populaires</div>
       <ul className="App-moviesList">{listMoviesRender}</ul>
       <div className="pageSelectorBottom">
         {pageId != 1 && (

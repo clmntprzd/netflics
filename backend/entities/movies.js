@@ -22,14 +22,17 @@ const Movie = new typeorm.EntitySchema({
     },
   },
   relations: {
-    users: {
+    fans: {
       type: 'many-to-many',
       target: 'User',
-      mappedBy: 'movies', // Refers to the property in the User entity that holds the relationship
-    }
-  }
-  
-  
+      mappedBy: 'likes', // Refers to the property in the User entity that holds the relationship
+    },
+    haters: {
+      type: 'many-to-many',
+      target: 'User',
+      mappedBy: 'dislikes', // Refers to the property in the User entity that holds the relationship
+    },
+  },
 });
 
 export default Movie;

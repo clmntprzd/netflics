@@ -6,10 +6,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/fontawesome-free-solid';
 import M18 from './M18.svg';
 function Film() {
+  function getCookieValue(name) {
+    const regex = new RegExp(`(^| )${name}=([^;]+)`);
+    const match = document.cookie.match(regex);
+    if (match) {
+      return match[2];
+    }
+  }
+  const userid = getCookieValue('userid');
   const [movieData, setMovieData] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
   const [movieImages, setMovieImage] = useState({});
   const [movieLiked, setMovieLikes] = useState({
+    Like: true,
+    Dislike: false,
+  });
+
+  const [movieLikedScreen, setMovieLikedScreen] = useState({
     Like: 'white',
     Dislike: 'white',
   });
@@ -22,18 +35,60 @@ function Film() {
       });
   }
   function LikeFunction() {
-    setMovieLikes({
-      Like: 'green',
-      Dislike: 'white',
-    });
-    console.log('Like');
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:8000/users/add_likes',
+      params: { userid: userid, movieid: filmId },
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        // Do something if call succeeded
+        console.log('Everything is working so far');
+        console.log(response.data);
+        setMovieLikes({
+          Like: true,
+          Dislike: false,
+        });
+        console.log('Like');
+      })
+      .catch((error) => {
+        // Do something if call failed
+        console.log(error);
+      });
   }
   function DislikeFunction() {
-    setMovieLikes({
-      Like: 'white',
-      Dislike: 'red',
-    });
-    console.log('Dislike');
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:8000/users/add_dislikes',
+      params: { userid: userid, movieid: filmId },
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        // Do something if call succeeded
+        console.log('Everything is working so far');
+        console.log(response.data);
+        setMovieLikes({
+          Like: false,
+          Dislike: true,
+        });
+        console.log('Dislike');
+      })
+      .catch((error) => {
+        // Do something if call failed
+        console.log(error);
+      });
   }
   const queryParameters = new URLSearchParams(window.location.search);
   const filmId = queryParameters.get('id');
@@ -42,6 +97,35 @@ function Film() {
   if (langactuelle === 'en') {
     langId = 'en-US';
   }
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:8000/users/check_likes',
+      params: { userid: userid, movieid: filmId },
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        // Do something if call succeeded
+        console.log('Everything is working so far');
+        console.log(response.data);
+        if (response.data.liked) {
+          setMovieLikedScreen({ Like: 'green', Dislike: 'white' });
+        }
+        if (response.data.disliked) {
+          setMovieLikedScreen({ Like: 'white', Dislike: 'red' });
+        }
+      })
+      .catch((error) => {
+        // Do something if call failed
+        console.log(error);
+      });
+  }, [movieLiked]);
   useEffect(() => {
     if (filmId) {
       const options = {
@@ -120,14 +204,14 @@ function Film() {
               <div className="LikeSingle" onClick={LikeFunction}>
                 <FontAwesomeIcon
                   icon="fa-solid fa-thumbs-up"
-                  style={{ color: movieLiked.Like }}
+                  style={{ color: movieLikedScreen.Like }}
                 />
               </div>
               <div className="LikeSingle" onClick={DislikeFunction}>
                 {' '}
                 <FontAwesomeIcon
                   icon="fa-solid fa-thumbs-down"
-                  style={{ color: movieLiked.Dislike }}
+                  style={{ color: movieLikedScreen.Dislike }}
                 />
               </div>
             </div>

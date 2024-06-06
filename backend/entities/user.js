@@ -17,13 +17,19 @@ const User = new typeorm.EntitySchema({
     lastname: { type: String },
   },
   relations: {
-    movies: {
+    likes: {
       type: 'many-to-many',
       target: 'Movie',
       joinTable: true,
       cascade: true,
-    }
-  }
+    },
+    dislikes: {
+      type: 'many-to-many',
+      target: 'Movie',
+      joinTable: true,
+      cascade: true,
+    },
+  },
 });
 
 export default User;
