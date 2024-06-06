@@ -45,9 +45,11 @@
   .search-icon{
     padding:20px;
     font-size:60px;
-    backdrop-filter: blur(10px);
+    transition: transform .2s;
   }
-
+  .search-icon:hover{
+    transform: scale(1.2);
+  }
   input, select, textarea{
     color: #272727;
 }
