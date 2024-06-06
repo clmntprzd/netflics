@@ -18,9 +18,18 @@ const Movie = new typeorm.EntitySchema({
       unique: true,
     },
     popularity: {
-      type: Float32Array,
+      type: 'float',
     },
   },
+  relations: {
+    users: {
+      type: 'many-to-many',
+      target: 'User',
+      mappedBy: 'movies', // Refers to the property in the User entity that holds the relationship
+    }
+  }
+  
+  
 });
 
 export default Movie;

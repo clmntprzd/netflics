@@ -124,7 +124,7 @@ def recommend_bm50(request):
     recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
     best_recommandation=[]
     for i in range(50):
-        best_recommandation.append({"filmId":desc_id[recommended_movies[i]],"poster_path":id_poster[desc_id[recommended_movies[i]]]})
+        best_recommandation.append({"id":desc_id[recommended_movies[i]],"poster_path":id_poster[desc_id[recommended_movies[i]]]})
     return best_recommandation
 
 # Afficher les recommandations
@@ -135,7 +135,20 @@ sim_request={"like":[370172],"dislike":[1022789]}
 #print(recommend_bm50(sim_request))
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class LikeDislike(BaseModel):
     like: list = []

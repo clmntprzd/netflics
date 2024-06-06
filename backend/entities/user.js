@@ -1,4 +1,5 @@
 import typeorm from 'typeorm';
+import Movie from './movies.js';
 
 const User = new typeorm.EntitySchema({
   name: 'User',
@@ -15,6 +16,14 @@ const User = new typeorm.EntitySchema({
     firstname: { type: String },
     lastname: { type: String },
   },
+  relations: {
+    movies: {
+      type: 'many-to-many',
+      target: 'Movie',
+      joinTable: true,
+      cascade: true,
+    }
+  }
 });
 
 export default User;

@@ -1,17 +1,13 @@
 import json
 import sqlite3
 
-conn = sqlite3.connect('movie')
+conn = sqlite3.connect('../backend/database.sqlite3')
 
-with open("resultat.json", 'r') as file:
+with open("resultat3400.json", 'r') as file:
     data = json.load(file)
 
-for i in data:
-    if "1057001" in str(i["id"]):
-        print(i["title"])
-        print(i["id"])
-        print(i["overview"])
-        
 
-#conn.execute("INSERT INTO movie (id,title,overview,genre_ids) \
-#      VALUES (?,?,?,?)");
+for movie in data:
+    conn.execute("INSERT INTO movie (id,title,overview,poster_path,popularity) VALUES (?,?,?,?,?)",(movie["id"],movie["title"],movie["overview"],movie["poster_path"],movie["popularity"]) )
+conn.commit()
+conn.close()
