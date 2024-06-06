@@ -6,13 +6,18 @@ const Movie = new typeorm.EntitySchema({
     id: {
       primary: true,
       type: Number,
-      generated: true,
     },
     title: {
       type: String,
+    },
+    overview: {
+      type: String,
       unique: true,
     },
-    duration: { type: String },
+    poster_path: {
+      type: String,
+      unique: true,
+    },
   },
 });
 
