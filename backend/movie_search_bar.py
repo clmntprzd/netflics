@@ -17,7 +17,7 @@ def search_movies_by_title(db_path, search_text):
 
 # Exemple d'utilisation
 db_path = "./../movieDatabase.sqlite3"
-search_text = "Av"
+search_text = "Harr"
 movies = search_movies_by_title(db_path, search_text)
 
 # Afficher les résultats

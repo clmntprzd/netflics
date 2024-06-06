@@ -12,11 +12,13 @@ const Movie = new typeorm.EntitySchema({
     },
     overview: {
       type: String,
-      unique: true,
     },
     poster_path: {
       type: String,
       unique: true,
+    },
+    popularity: {
+      type: Float32Array,
     },
   },
 });

@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import string
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict, Counter
-
+import json
 # Télécharger les ressources nécessaires
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -22,7 +22,7 @@ def preprocess_text(text):#A revoir possibilité d'integrer dans fonction sklear
     tokens = nltk.word_tokenize(text)
     
     # Suppression des stopwords
-    stop_words = set(nltk.corpus.stopwords.words('english'))
+    stop_words = set(nltk.corpus.stopwords.words('french'))
     tokens = [word for word in tokens if word not in stop_words]
 
     # Stemming
@@ -77,10 +77,12 @@ def user_profile(rated_movies, vectorizer): #
     
     return preference_vector.reshape(1, -1)
 
-from lire_json import get_id_description, get_description_id
+from lire_json import get_id_description, get_description_id,get_both
 
-desc_id = get_description_id("resultat.json")
-id_desc = get_id_description("resultat.json")
+desc_id,id_desc, id_poster= get_both("resultat3400.json")
+
+#desc_id = get_description_id("resultat3400.json")
+#id_desc = get_id_description("resultat3400.json")
 
 descriptions = list(desc_id.keys())
 
@@ -93,10 +95,8 @@ descriptions = list(desc_id.keys())
 #     "Fight Club is a drama film with action."
 # ]
 
-from random import choice
-rating = [-1,-0.5,0,.5,1]
 # # Films notés par l'utilisateur (description, note)
-rated_movies = [(id_desc[1366],1)]
+# rated_movies = [(id_desc[746036],1),(id_desc[719221],-1)]
 #rated_movies = [(desc,choice(rating)) for desc in descriptions]
 # rated_movies = [
 #     ("The Godfather is a crime film.", .5),
@@ -112,11 +112,43 @@ tf_idf_matrix, vectorizer = compute_tf_idf(descriptions)
 
 #print([f"{vectorizer.get_feature_names_out()[i]} : {round(user_pref_vector[i],2)}" for i in range(len(user_pref_vector))])
 # Recommander des films
-recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
-
+def recommend_bm50(request):
+    data=request
+    like=data["like"]
+    dislike=data["dislike"]
+    rated_movies=[]
+    for film in like:
+        rated_movies.append((id_desc[film],1))
+    for film in dislike:
+        rated_movies.append((id_desc[film],-1))
+    recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
+    best_recommandation=[]
+    for i in range(50):
+        best_recommandation.append({"filmId":desc_id[recommended_movies[i]],"poster_path":id_poster[desc_id[recommended_movies[i]]]})
+    return best_recommandation
 
 # Afficher les recommandations
-for i in range(len(recommended_movies)):
-    print(f"{i+1} : {desc_id[recommended_movies[i]]}")
+sim_request={"like":[370172],"dislike":[1022789]}
 
 #1366 1375
+
+#print(recommend_bm50(sim_request))
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class LikeDislike(BaseModel):
+    like: list = []
+    dislike: list = []
+
+@app.get("/")
+async def root(like:str, dislike:str):
+    like_int=[]
+    dislike_int=[]
+    if len(like)>0:
+        like_int=[int(liked) for liked in like.split(",")]
+    if len(dislike)>0:
+
+        dislike_int=[int(disliked) for disliked in dislike.split(",")]
+    recom_request={"like":like_int,"dislike":dislike_int}
+    return recommend_bm50(recom_request)

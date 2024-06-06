@@ -4,25 +4,50 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 function Home() {
-  const [movieName, setMovieName] = useState('Exemples');
   const [moviesList, setMoviesList] = useState([]);
+  const queryParameters = new URLSearchParams(window.location.search);
+  var pageId = queryParameters.get('page');
+  if (pageId == null) {
+    pageId = 1;
+  }
+  var langId = 'fr-FR';
+  var langactuelle = queryParameters.get('lang');
+  if (langactuelle === 'en') {
+    langId = 'en-US';
+  }
+  console.log(pageId);
 
   const listMoviesRender = moviesList.map((movie) => (
-    <li key={movie.id}>{movie.name}</li>
+    <a href={'/film?id=' + movie.id}>
+      <li className="list-item" key={movie.id}>
+        <img
+          src={
+            'https://media.themoviedb.org/t/p/w440_and_h660_face' +
+            movie.poster_path
+          }
+          alt="Poster"
+          width="300px"
+        />
+      </li>
+    </a>
   ));
+
   useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:8008',
+      params: { like: '1022789,653346', dislike: '' },
+      headers: {
+        accept: 'application/json',
+      },
+    };
     console.log('test du hook');
     axios
-      .get(`https://api.themoviedb.org/3/genre/movie/list`, {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
-        },
-      })
+      .request(options)
       .then((response) => {
         // Do something if call succeeded
         console.log('Everything is working so far');
-        setMoviesList(response.data.genres);
+        setMoviesList(response.data.results);
         console.log(moviesList);
       })
       .catch((error) => {
@@ -31,19 +56,9 @@ function Home() {
       });
   }, []);
 
-  function handleChange(e) {
-    setMovieName(e.target.value);
-  }
-
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Trouver des films parmi une collection de plusieurs milliers</p>
-      </header>
-      <input value={movieName} onChange={handleChange} />
-      <p>Recherche actuelle: {movieName}</p>
-      <button onClick={() => setMovieName('Exemple de films')}>Reset</button>
-      <ul className="App-genresList">{listMoviesRender}</ul>
+      <ul className="App-moviesList">{listMoviesRender}</ul>
     </div>
   );
 }
