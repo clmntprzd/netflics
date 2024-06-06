@@ -13,6 +13,9 @@ const Header = () => {
   console.log('Test du cookie');
 
   const username = getCookieValue('name');
+  if (username == undefined && window.location.pathname != '/users') {
+    window.location.href = '/users';
+  }
   console.log(username);
 
   return (
@@ -22,7 +25,7 @@ const Header = () => {
           <img className="logonetflics" src={logo} alt="Logo"></img>
         </Link>
         <div>|</div>
-        <Link className="Link" to="/genres">
+        <Link className="Link" to="/recommendation">
           <FontAwesomeIcon
             icon="fa-solid fa-ticket-alt"
             style={{ color: '#ffffff' }}

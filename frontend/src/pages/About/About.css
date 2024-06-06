@@ -1,3 +1,22 @@
-.about {
+.AboutBigContainer{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.About {
   text-align: center;
+  font-size: 30px;
+  margin: 40px;
+  margin-left: 60px;
+
+}
+
+.logonetflicsAbout
+{
+  display: flex;
+
+  max-height: 200px;
+  width:auto;
 }

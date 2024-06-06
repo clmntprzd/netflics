@@ -9,8 +9,32 @@ function Film() {
   const [movieData, setMovieData] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
   const [movieImages, setMovieImage] = useState({});
-  const [movieLiked, setMovieLikes] = useState({});
-
+  const [movieLiked, setMovieLikes] = useState({
+    Like: 'white',
+    Dislike: 'white',
+  });
+  function SendLikes() {
+    axios
+      .get()
+      .then((response) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  function LikeFunction() {
+    setMovieLikes({
+      Like: 'green',
+      Dislike: 'white',
+    });
+    console.log('Like');
+  }
+  function DislikeFunction() {
+    setMovieLikes({
+      Like: 'white',
+      Dislike: 'red',
+    });
+    console.log('Dislike');
+  }
   const queryParameters = new URLSearchParams(window.location.search);
   const filmId = queryParameters.get('id');
   var langId = 'fr-FR';
@@ -96,10 +120,10 @@ function Film() {
               <div className="LikeSingle" onClick={LikeFunction}>
                 <FontAwesomeIcon
                   icon="fa-solid fa-thumbs-up"
-                  style={{ color: '#ffffff' }}
+                  style={{ color: movieLiked.Like }}
                 />
               </div>
-              <div className="LikeSingle" onClick={Dislike}>
+              <div className="LikeSingle" onClick={DislikeFunction}>
                 {' '}
                 <FontAwesomeIcon
                   icon="fa-solid fa-thumbs-down"
