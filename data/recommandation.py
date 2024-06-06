@@ -125,7 +125,7 @@ def recommend_bm50(request):
     best_recommandation=[]
     count=0
     i=0
-    while count<100 and i<len(recommended_movies):
+    while count<150 and i<len(recommended_movies):
         if desc_id[recommended_movies[i]] in like:
             pass
         else:

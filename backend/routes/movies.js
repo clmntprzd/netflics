@@ -3,7 +3,7 @@ import { Like } from 'typeorm';
 import { appDataSource } from '../datasource.js';
 import Movie from '../entities/movies.js';
 const router = express.Router();
-const ITEMS_PER_PAGE = 40; // Number of items per page
+const ITEMS_PER_PAGE = 100; // Number of items per page
 router.get('/', function (req, res) {
   appDataSource
     .getRepository(Movie)
