@@ -22,12 +22,3 @@ print(resultatjson)
 
 with open("../data/resultat.json", "w") as outfile:
     outfile.write(resultatjson)
-#for i in resultat:
-#    conn = lite.connect("movie")
-#    cur = conn.cursor()
-#    sql = "INSERT INTO movie (id, title, genre_ids, overview, poster_path) VALUES (?, ?, ?, ?, ?)"
-#    val = (i["id"], i["title"], i["genre_ids"], i["overview"], i["poster_path"])
-#    cur.execute(sql, val)
-#    conn.commit()
-#conn.close()
-

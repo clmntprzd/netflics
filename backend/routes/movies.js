@@ -20,8 +20,8 @@ router.post('/new', function (req, res) {
     id: req.body.id,
     title: req.body.title,
     genre_ids: req.body.genre_ids,
-    overview : req.body.overview,
-    poster_path : req.body.poster_path
+    overview: req.body.overview,
+    poster_path: req.body.poster_path,
   });
 
   movieRepository
