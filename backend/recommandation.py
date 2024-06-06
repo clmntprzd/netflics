@@ -32,7 +32,7 @@ def preprocess_text(text):#A revoir possibilité d'integrer dans fonction sklear
     return ' '.join(tokens)
 
 
-def compute_tf_idf(descriptions):
+def compute_tf_idf(descriptions): #descriptions de le forme 
     # Prétraiter les descriptions
     preprocessed_descriptions = [preprocess_text(desc) for desc in descriptions]
         
@@ -51,15 +51,15 @@ def recommend_movies(rated_movies,vectorizer, tf_idf_matrix): #Important de gard
     
     # Trier les films par similarité
     sorted_indices = similarities.argsort()[::-1]
-        
-    return sorted_indices
+    print(sorted_indices)
+    return [descriptions[i] for i in sorted_indices]
 
 """
-hypothèses : valeurs centrées en 0 pour exprimer l'intérêt de l'utilisateur [-a, a] /(2*a) disons [-1, -.5, 0, .5, 1], considerer la moyenne de ses notes
-On prend les films notés et on * 
+hypothèses : valeurs centrées en 0 pour exprimer l'intérêt de l'utilisateur [-a, a] /(2*a) disons [-1, -.5, 0, .5, 1], possibilité de considerer la moyenne de ses notes
+On prend les films notés
 """
 
-def user_profile(rated_movies, vectorizer):
+def user_profile(rated_movies, vectorizer): #
     # Initialiser les vecteurs
     preference_vector = np.zeros(len(vectorizer.get_feature_names_out()))
     word_counter = np.zeros(len(vectorizer.get_feature_names_out()))
@@ -68,7 +68,7 @@ def user_profile(rated_movies, vectorizer):
         processed_description = preprocess_text(description) #mais je le fais 2 fois
         description_vector = vectorizer.transform([processed_description]).toarray().flatten()
         
-        preference_vector += description_vector * rating
+        preference_vector += description_vector * rating #mots caractérisant le film * le poid accordé selon preference utilisateur
         word_counter += (description_vector > 0)
     
     # Normalisation
@@ -77,46 +77,35 @@ def user_profile(rated_movies, vectorizer):
     
     return preference_vector.reshape(1, -1)
 
+from lire_json import get_id_description, get_description_id
 
+desc_id = get_description_id("resultat.json")
+id_desc = get_id_description("resultat.json")
 
+descriptions = list(desc_id.keys())
 
+# # Exemple d'utilisation
+# descriptions = [
+#     "The Shawshank Redemption is a drama film.",
+#     "The Godfather is a crime film.",
+#     "The Dark Knight is an action film.",
+#     "Pulp Fiction is a crime film with action elements.",
+#     "Fight Club is a drama film with action."
+# ]
 
-# # Profil utilisateur (liste de mots-clés représentant les préférences)
-# user_profile =  "action dark crime crime club"
+from random import choice
+rating = [-1,-0.5,0,.5,1]
+# # Films notés par l'utilisateur (description, note)
+rated_movies = [(id_desc[1366],1)]
+#rated_movies = [(desc,choice(rating)) for desc in descriptions]
+# rated_movies = [
+#     ("The Godfather is a crime film.", .5),
+#     ("The Dark Knight is an action film.", 0),
+#     ("Pulp Fiction is a crime film with action elements.", -1),
+#     ("Fight Club is a drama film with action.", 1)
+# ]
 
-# Calculer les TF-IDF pour les descriptions de films
-# tf_idf_matrix,vectorizer = compute_tf_idf(descriptions)
-# # Recommander des films
-# recommended_movies = recommend_movies(user_profile,vectorizer, tf_idf_matrix)
-
-
-# # Afficher les recommandations
-# for i in range(len(recommended_movies)):
-#     print(f"{i+1} : {descriptions[recommended_movies[i]]}")
-
-
-
-
-
-
-# Exemple d'utilisation
-descriptions = [
-    "The Shawshank Redemption is a drama film.",
-    "The Godfather is a crime film.",
-    "The Dark Knight is an action film.",
-    "Pulp Fiction is a crime film with action elements.",
-    "Fight Club is a drama film with action."
-]
-
-# Films notés par l'utilisateur (description, note)
-rated_movies = [
-    ("The Godfather is a crime film.", .5),
-    ("The Dark Knight is an action film.", 0),
-    ("Pulp Fiction is a crime film with action elements.", -1),
-    ("Fight Club is a drama film with action.", 1)
-]
-
-# Calculer les TF-IDF pour les descriptions de films
+# # Calculer les TF-IDF pour les descriptions de films
 tf_idf_matrix, vectorizer = compute_tf_idf(descriptions)
 
 
@@ -128,4 +117,6 @@ recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
 
 # Afficher les recommandations
 for i in range(len(recommended_movies)):
-    print(f"{i+1} : {descriptions[recommended_movies[i]]}")
+    print(f"{i+1} : {desc_id[recommended_movies[i]]}")
+
+#1366 1375
