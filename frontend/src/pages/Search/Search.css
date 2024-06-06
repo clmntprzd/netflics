@@ -47,9 +47,24 @@
     font-size:60px;
     transition: transform .2s;
   }
+
+  .search-icon:active{
+    transform: scale(0.7);
+  }
   .search-icon:hover{
     transform: scale(1.2);
   }
   input, select, textarea{
     color: #272727;
+}
+
+.NoSearch{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 50px;
+  min-height: 50vh;
+  min-width: 100vw;
 }
