@@ -9,6 +9,8 @@ function Film() {
   const [movieData, setMovieData] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
   const [movieImages, setMovieImage] = useState({});
+  const [movieLiked, setMovieLikes] = useState({});
+
   const queryParameters = new URLSearchParams(window.location.search);
   const filmId = queryParameters.get('id');
   var langId = 'fr-FR';
@@ -90,6 +92,22 @@ function Film() {
                 ) == undefined
               ) && <img className="logo18" src={M18} alt="Logo 18"></img>}
             </div>
+            <div className="Liked">
+              <div className="LikeSingle" onClick={LikeFunction}>
+                <FontAwesomeIcon
+                  icon="fa-solid fa-thumbs-up"
+                  style={{ color: '#ffffff' }}
+                />
+              </div>
+              <div className="LikeSingle" onClick={Dislike}>
+                {' '}
+                <FontAwesomeIcon
+                  icon="fa-solid fa-thumbs-down"
+                  style={{ color: movieLiked.Dislike }}
+                />
+              </div>
+            </div>
+
             <div className="star-rating">
               <div className="back-stars">
                 <FontAwesomeIcon icon="fa-solid fa-star" />

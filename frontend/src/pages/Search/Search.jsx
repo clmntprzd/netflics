@@ -80,7 +80,7 @@ function Home() {
             <div className="pageSelector">
               <FontAwesomeIcon
                 icon="fa-solid fa-arrow-left"
-                beat
+      
                 style={{ color: '#ffffff' }}
               />
             </div>
@@ -93,7 +93,7 @@ function Home() {
           <div className="pageSelector">
             <FontAwesomeIcon
               icon="fa-solid fa-arrow-right"
-              beat
+            
               style={{ color: '#ffffff' }}
             />
           </div>
