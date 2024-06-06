@@ -1,12 +1,13 @@
-import './Home.css';
+import './Search.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../../netflicslogo.ico';
 function Home() {
   const [moviesList, setMoviesList] = useState([]);
   const queryParameters = new URLSearchParams(window.location.search);
+
   var pageId = queryParameters.get('page');
   if (pageId == null) {
     pageId = 1;
@@ -60,6 +61,17 @@ function Home() {
 
   return (
     <div className="App">
+      <div className="searchBigContainer">
+        <div class="search-container">
+          <input type="text" class="search-bar" placeholder="Search..." />
+          <div className="search-icon">
+            <FontAwesomeIcon
+              icon="fa-solid fa-search"
+              style={{ color: '#ffffff' }}
+            />
+          </div>
+        </div>
+      </div>
       <ul className="App-moviesList">{listMoviesRender}</ul>
       <div className="pageSelectorBottom">
         {pageId != 1 && (
@@ -68,7 +80,7 @@ function Home() {
             <div className="pageSelector">
               <FontAwesomeIcon
                 icon="fa-solid fa-arrow-left"
-                beat
+      
                 style={{ color: '#ffffff' }}
               />
             </div>
@@ -81,7 +93,7 @@ function Home() {
           <div className="pageSelector">
             <FontAwesomeIcon
               icon="fa-solid fa-arrow-right"
-              beat
+            
               style={{ color: '#ffffff' }}
             />
           </div>

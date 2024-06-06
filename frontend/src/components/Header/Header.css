@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: center;
   padding: 5px;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(40px + 2vmin);
   color:white;
   
 }
@@ -16,4 +16,26 @@
   font-weight: 700;
   color: white;
   text-decoration: none;
+}
+
+.logonetflics
+{
+  display: flex;
+
+  max-height: 80px;
+  width:auto;
+}
+
+.userName{
+  padding-top: 20px;
+  font-size: 40px;
+  position : absolute;
+  top : 0 px ;
+  right : 10px;
+}
+
+.NavBar-container{
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
 }
