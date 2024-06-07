@@ -239,4 +239,64 @@ router.get('/check_likes', function (req, res) {
     });
 });
 
+router.get('/remove_likes/', async (req, res) => {
+  const userId = req.query.userid;
+  const movieId = req.query.movieid;
+  const userRepository = appDataSource.getRepository(User);
+  const movieRepository = appDataSource.getRepository(Movie);
+  try {
+    // Fetch the user and the movie from the database
+    const user = await userRepository.findOne({
+      where: { id: userId },
+      relations: ['likes', 'dislikes'],
+    });
+    const movie = await movieRepository.findOne({
+      where: { id: movieId },
+    });
+
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    if (!movie) {
+      return res.status(404).send({ error: 'Movie not found' });
+    }
+
+    // Fetch the user from the database
+
+    // Find the index of the movie in the user's likes array
+    const index = user.likes.findIndex(
+      (movieit) => movieit.id === parseInt(movieId)
+    );
+
+    if (index === -1) {
+      console.log('movie not liked');
+    } else {
+      // Remove the movie from the user's likes array
+      user.likes.splice(index, 1);
+
+      // Save the updated user entity
+      await userRepository.save(user);
+      res.send({ message: 'Like removed successfully' });
+    }
+
+    const indexdislikes = user.dislikes.findIndex(
+      (movieit) => movieit.id === parseInt(movieId)
+    );
+
+    if (indexdislikes === -1) {
+      console.log('movie not disliked');
+    } else {
+      // Remove the movie from the user's likes array
+      user.dislikes.splice(indexdislikes, 1);
+
+      // Save the updated user entity
+      await userRepository.save(user);
+      res.send({ message: 'Like removed successfully' });
+    }
+  } catch {
+    console.log('Could not remove film');
+  }
+});
+
 export default router;

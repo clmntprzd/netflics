@@ -2,25 +2,32 @@
   text-align: center;
 }
 
-
-
 .App-link {
   color: #61dafb;
 }
-.FilmBox{
+.FilmBox {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-evenly;
-  background-size: cover;
-  min-height: calc(100vh - 34px);
+  min-width: 100vw;
   position: relative;
   background-size: cover;
   background-blend-mode: saturation;
-
+  margin-bottom: 50px;
+  margin-top: 20px;
 }
 
-.LoadingBox{
+.FilmRecommandationBigContainer {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: calc(100vh - 34px);
+  position: relative;
+}
+
+.LoadingBox {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -28,7 +35,7 @@
   overflow: auto;
   position: relative;
 }
-.FilmImage{
+.FilmImage {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -38,31 +45,38 @@
   width: 100%;
   height: auto;
   max-width: 800px;
+  margin: 80px;
+  margin-right: 30px;
+  padding: auto;
 }
 
-.FilmText
-{
+.FilmText {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
   color: white;
-  mix-blend-mode:difference;
+  mix-blend-mode: difference;
   backdrop-filter: brightness(0.2) grayscale(0.5);
   border-radius: 50px;
-  margin:40px;
+  margin: 80px;
   padding: 40px;
-
+  margin-left: 20px;
 }
-.FilmTitle{
+.SimilairesTitres {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  font-size: 50px;
+}
+.FilmTitle {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   font-size: 60px;
-
 }
-.FilmDescription{
+.FilmDescription {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -71,82 +85,77 @@
   max-width: 800px;
 }
 
-.FilmFacInfo
-{
+.FilmFacInfo {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 40px;
   padding-bottom: 20px;
 }
 
-.Error
-{
+.Error {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
   color: red;
   font-size: xx-large;
-  position:relative;
+  position: relative;
   height: 100vh;
 }
 
-a
-{
+a {
   color: unset;
   text-decoration: unset;
 }
 
-
 .star-rating {
-    display:  flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    font-size: 50px;
-    justify-content: center;
-    margin-top: 20px;
-    padding-bottom: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 50px;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 .back-stars {
-  display:  flex;
+  display: flex;
   flex-flow: row nowrap;
-    color: #bb5252;
-    position: relative;
-    text-shadow: 4px 4px 10px #843a3a;
+  color: #bb5252;
+  position: relative;
+  text-shadow: 4px 4px 10px #843a3a;
 }
 .front-stars {
-  display:  flex;
+  display: flex;
   flex-flow: row nowrap;
-    color: #FFBC0B;
-    overflow: hidden;
-    position: absolute;
-    text-shadow: 2px 2px 5px #d29b09;
-    top: 0;
-    transition: all .5s
+  color: #ffbc0b;
+  overflow: hidden;
+  position: absolute;
+  text-shadow: 2px 2px 5px #d29b09;
+  top: 0;
+  transition: all 0.5s;
 }
 
-.logo18
-{
+.logo18 {
   padding: 20px;
   border-radius: 20px;
   width: 100px;
 }
 
-.Liked{
+.Liked {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
   font-size: 60px;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
-.LikeSingle{
-  padding:20px;
-  margin:10px;
+.LikeSingle {
+  padding: 20px;
+  margin: 10px;
 }
 
-.LikeSingle:active{
+.LikeSingle:active {
   transform: scale(0.7);
 }
