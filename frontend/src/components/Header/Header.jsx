@@ -25,7 +25,7 @@ const Header = () => {
           <img className="logonetflics" src={logo} alt="Logo"></img>
         </Link>
         <div>|</div>
-        <Link className="Link" to="/recommendation">
+        <Link className="Link" to="/recommandation">
           <FontAwesomeIcon
             icon="fa-solid fa-ticket-alt"
             style={{ color: '#ffffff' }}

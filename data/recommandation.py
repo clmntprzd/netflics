@@ -6,10 +6,13 @@ import string
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict, Counter
 import json
+
+from nltk.stem.snowball import SnowballStemmer
 # Télécharger les ressources nécessaires
 nltk.download('punkt')
 nltk.download('stopwords')
 print()
+stemmer=SnowballStemmer(language='french')
 
 def preprocess_text(text):#A revoir possibilité d'integrer dans fonction sklearn
     text = text.lower() # Convertir en minuscules
@@ -26,8 +29,8 @@ def preprocess_text(text):#A revoir possibilité d'integrer dans fonction sklear
     tokens = [word for word in tokens if word not in stop_words]
 
     # Stemming
-    ps = PorterStemmer()
-    tokens = [ps.stem(word) for word in tokens]
+    #ps = PorterStemmer()
+    tokens = [stemmer.stem(word) for word in tokens]
 
     return ' '.join(tokens)
 
@@ -118,7 +121,7 @@ def recommend_bm50(request):
     dislike=data["dislike"]
     rated_movies=[]
     for film in like:
-        rated_movies.append((id_desc[film],1))
+        rated_movies.append((id_desc[film],3))
     for film in dislike:
         rated_movies.append((id_desc[film],-1))
     recommended_movies = recommend_movies(rated_movies,vectorizer, tf_idf_matrix)
@@ -134,10 +137,7 @@ def recommend_bm50(request):
         i+=1
     return best_recommandation
 
-# Afficher les recommandations
-sim_request={"like":[370172],"dislike":[1022789]}
 
-#1366 1375
 
 #print(recommend_bm50(sim_request))
 from fastapi import FastAPI

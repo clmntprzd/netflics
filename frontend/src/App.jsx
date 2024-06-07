@@ -4,7 +4,7 @@ import About from './pages/About/About';
 import Layout from './components/Layout/Layout';
 import Counter from './pages/Counter/Counter';
 import Users from './pages/Users/Users';
-import Genres from './pages/Genres/Genres';
+import Recommandation from './pages/Recommandation/Recommandation';
 import Film from './pages/Film/Film';
 import Search from './pages/Search/Search';
 import Likes from './pages/Likes/Likes';
@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="counter" element={<Counter />} />
-        <Route path="recommendation" element={<Genres />} />
+        <Route path="recommandation" element={<Recommandation />} />
         <Route path="users" element={<Users />} />
         <Route path="about" element={<About />} />
         <Route path="film" element={<Film />} />
