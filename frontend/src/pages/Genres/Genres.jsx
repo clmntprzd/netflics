@@ -11,11 +11,10 @@ function Home() {
       return match[2];
     }
   }
-  
+
   const userid = getCookieValue('userid');
   const [moviesList, setMoviesList] = useState([]);
   const listMoviesRender = moviesList.map((movie) => (
-
     <a href={'/film?id=' + movie.id}>
       <li className="list-item" key={movie.id}>
         <img
@@ -85,7 +84,7 @@ function Home() {
 
   return (
     <div className="App">
-      <div className="App-Header">Recommendations</div>
+      <div className="App-Header">Recommandations</div>
       <ul className="App-moviesList">{listMoviesRender}</ul>
     </div>
   );
